@@ -1,0 +1,55 @@
+scalar DateTime
+
+type Query {
+  getPostById(id: ID!): Post
+  getPosts(cursor: String!, limit: Int!): GetPostsResponse!
+}
+
+type Mutation {
+  createPost(input: CreatePostRequest!): Post!
+  updatePost(input: UpdatePostRequest!): Post!
+  deletePost(input: DeletePostRequest!): Result!
+}
+
+type Result {
+  isSuccess: Boolean!
+}
+
+type GetPostsResponse {
+  posts: [Post!]!
+  cursor: String!
+}
+
+type Post {
+  id: ID!
+  title: String!
+  content: String!
+  comments: [Comment!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+type Comment {
+  id: ID!
+  content: String!
+  createdAt: DateTime!
+}
+
+input CreatePostRequest {
+  id: ID
+  title: String!
+  content: String!
+}
+
+input UpdatePostRequest {
+  id: ID!
+  title: String!
+  content: String!
+}
+
+
+input DeletePostRequest {
+  id: ID!
+}
+
